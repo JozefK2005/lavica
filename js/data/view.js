@@ -1,6 +1,6 @@
 // Spoločné výpočty pre obe dátové vrstvy (demo aj Supabase).
 
-export const RESOLVE_AFTER = 3 // koľko „Už funguje“ treba, aby sa problém uzavrel
+export const RESOLVE_AFTER = 3 
 
 export function equipmentStatus(yes, no) {
   if (yes === 0 && no === 0) return 'unknown'
@@ -17,7 +17,6 @@ export function problemStatus(p) {
 
 export const STATUS_LABEL = { open: 'Otvorené', verifying: 'Overuje sa', resolved: 'Vyriešené' }
 
-// Čo si zbaliť: tipy z učebne; ak učebňa tipy nemá, odvodíme ich z vybavenia.
 export function packItemsForRooms(rooms) {
   const items = []
   for (const r of rooms) {

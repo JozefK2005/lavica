@@ -1,5 +1,7 @@
-node_modules
-dist
-dev-dist
-.env
 .git
+.gitignore
+.dockerignore
+Dockerfile
+nginx.conf
+README.md
+supabase

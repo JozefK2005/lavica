@@ -1,4 +1,3 @@
-// Ukážkové dáta pre demo režim (bez Supabase). Čísla učební a vybavenie sú vymyslené.
 const days = (n) => new Date(Date.now() - n * 86400000).toISOString()
 
 export const EQUIPMENT_PRESETS = [
@@ -10,9 +9,6 @@ export const EQUIPMENT_PRESETS = [
   { key: 'klima', label: 'Klimatizácia' }
 ]
 
-// Budovy a učebne FEI TUKE podľa rozvrhového portálu KPI (data-portal.kpi.fei.tuke.sk).
-// code = krátky kód budovy, je súčasťou ID učebne (L9-A534) aj odkazu v QR kóde.
-// aliases = ako sa budova môže volať v importovanom rozvrhu (.ics), VEĽKÝMI písmenami.
 export const BUILDINGS = [
   { code: 'L9', name: 'Letná 9', short: 'Letná 9', aliases: ['LETNÁ 9', 'LETNA 9', 'HLAVNÁ BUDOVA', 'L9'] },
   { code: 'PK6', name: 'Park Komenského 6', short: 'PK 6', aliases: ['PARK KOMENSKÉHO 6', 'PARK KOMENSKEHO 6', 'PK 6', 'PK6'] },
@@ -21,7 +17,6 @@ export const BUILDINGS = [
   { code: 'N9', name: 'Němcovej 9', short: 'N9', aliases: ['NĚMCOVEJ 9', 'NEMCOVEJ 9', 'ZDRUŽENÉ POSLUCHÁRNE', 'ZDRUZENE POSLUCHARNE', 'BN5', 'N9', 'ZP'] }
 ]
 
-// number = označenie z rozvrhu, name = názov miestnosti, floor = poschodie (ak ho poznáme)
 const room = (code, number, name, floor, seats = null) => ({ id: `${code}-${number}`.toUpperCase(), building: code, number, name, floor, seats })
 
 export const SEED = {
@@ -60,7 +55,6 @@ export const SEED = {
     room('N9', 'ZP1', 'Poslucháreň ZP1 (201)', ''),
     room('N9', 'ZP4', 'Poslucháreň ZP4 (015)', '')
   ],
-  // Vybavenie, tipy a hlásenia nižšie sú UKÁŽKOVÉ – len na vyskúšanie appky.
   equipment: [
     { id: 'e1', roomId: 'L9-P25', key: 'projektor', label: 'Projektor + HDMI', yes: 14, no: 0 },
     { id: 'e2', roomId: 'L9-P25', key: 'tabula', label: 'Tabuľa', yes: 9, no: 0 },

@@ -14,13 +14,11 @@ export function addDays(d, n) {
   return x
 }
 
-// 0 = pondelok … 4 = piatok, víkend = -1
 export function weekdayIndex(d) {
   const w = d.getDay()
   return w >= 1 && w <= 5 ? w - 1 : -1
 }
 
-// Deň, ktorý appka ukáže po otvorení: zajtra, cez víkend najbližší pondelok.
 export function defaultTargetDate(now = new Date()) {
   let d = addDays(startOfDay(now), 1)
   while (weekdayIndex(d) === -1) d = addDays(d, 1)

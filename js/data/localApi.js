@@ -1,4 +1,3 @@
-// Demo režim: všetko je uložené len v tomto prehliadači.
 import { SEED } from './seed.js'
 import { readJSON, writeJSON } from '../lib/storage.js'
 import { blobToDataUrl, resizeImage } from '../lib/image.js'

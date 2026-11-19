@@ -1,5 +1,3 @@
-// Jednoduchý import rozvrhu z .ics (export z kalendára alebo zo školského systému).
-// Berie týždenne opakované udalosti a z miesta (LOCATION) vytiahne číslo učebne.
 
 function unfold(text) {
   return text.replace(/\r?\n[ \t]/g, '')
@@ -29,11 +27,8 @@ function guessType(summary) {
 const esc = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
 const token = (alias) => new RegExp(`(^|[^\\p{L}\\p{N}])${esc(alias)}(?=$|[^\\p{L}\\p{N}])`, 'u')
 
-// „Letná 9, učebňa 108“ → { roomId: 'L9-108', guessed: false }
-// Ak budovu nespoznáme, použijeme fallback a označíme to (guessed: true).
 export function roomFromLocation(location, buildings = [], fallback = '') {
   if (!location) return { roomId: '', guessed: true }
-  // TUKE píše bloky Letnej 9 aj ako „L9A 204“ / „L9B 520“ → „L9 A204“
   const upper = location.toUpperCase().replace(/(^|[^\p{L}\p{N}])L9\s*-?\s*([AB])[\s_-]*(\d{1,4})/u, '$1L9 $2$3')
   const names = (b) => [b.name.toUpperCase(), ...(b.aliases || [])].sort((x, y) => y.length - x.length)
   const building = buildings.find((b) => names(b).some((a) => token(a).test(upper)))
@@ -74,7 +69,6 @@ export function parseIcs(text, buildings = [], fallback = '') {
       week: interval === '2' ? (isoWeekOf(start) % 2 === 0 ? 'parny' : 'neparny') : 'kazdy'
     })
   }
-  // rovnaké hodiny (rovnaký deň, čas, učebňa) zlúčime – .ics často obsahuje každý týždeň zvlášť
   const seen = new Set()
   return events.filter((e) => {
     const k = `${e.day}|${e.from}|${e.roomId}|${e.name}`

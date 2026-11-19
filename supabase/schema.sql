@@ -1,20 +1,16 @@
--- Schéma pre appku Lavica. Spusti v Supabase → SQL Editor.
--- Predtým zapni: Authentication → Sign In / Providers → "Allow anonymous sign-ins".
-
--- Budovy / areály. code je súčasťou ID učebne a odkazu v QR kóde.
 create table if not exists buildings (
-  code    text primary key,              -- napr. 'L9'
-  name    text not null,                 -- 'Letná 9'
-  short   text not null,                 -- krátky názov do zoznamov
-  aliases text[] not null default '{}',  -- ako sa budova volá v importovanom rozvrhu (VEĽKÝMI písmenami)
+  code    text primary key,              
+  name    text not null,                 
+  short   text not null,                
+  aliases text[] not null default '{}',  
   sort    int not null default 0
 );
 
 create table if not exists rooms (
-  id        text primary key,            -- kód budovy + číslo, napr. 'L9-108'
+  id        text primary key,            
   building  text not null references buildings(code),
-  number    text not null,               -- označenie z rozvrhu, napr. 'A534'
-  name      text,                        -- napr. 'Romulus – laboratórium CNL'
+  number    text not null,               
+  name      text,                        
   floor     text not null default '',
   seats     int,
   unique (building, number),
@@ -128,8 +124,6 @@ insert into storage.buckets (id, name, public) values ('photos', 'photos', true)
 create policy "read photos files" on storage.objects for select using (bucket_id = 'photos');
 create policy "upload photos files" on storage.objects for insert to authenticated with check (bucket_id = 'photos');
 
--- Budovy a učebne FEI TUKE podľa rozvrhového portálu KPI (data-portal.kpi.fei.tuke.sk).
--- Poschodia pri blokoch A/B sú odvodené z čísla miestnosti – over ich.
 insert into buildings (code, name, short, aliases, sort) values
   ('L9',  'Letná 9',              'Letná 9', '{"LETNÁ 9","LETNA 9","HLAVNÁ BUDOVA","L9"}', 1),
   ('PK6', 'Park Komenského 6',    'PK 6',    '{"PARK KOMENSKÉHO 6","PARK KOMENSKEHO 6","PK 6","PK6"}', 2),
@@ -174,7 +168,3 @@ insert into rooms (id, building, number, name, floor) values
   ('N9-ZP1',   'N9',  'ZP1',   'Poslucháreň ZP1 (201)',              ''),
   ('N9-ZP4',   'N9',  'ZP4',   'Poslucháreň ZP4 (015)',              '')
 on conflict (id) do nothing;
-
--- Novú budovu a učebňu pridáš takto:
--- insert into buildings (code, name, short, aliases, sort) values ('EKF', 'Němcovej 32 (EkF)', 'EkF', '{"NĚMCOVEJ 32","NEMCOVEJ 32","EKF"}', 5);
--- insert into rooms (id, building, number, name, floor) values ('EKF-413', 'EKF', '413', 'Učebňa 413', '4. poschodie');

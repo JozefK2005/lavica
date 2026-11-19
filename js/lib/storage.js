@@ -1,4 +1,3 @@
-// localStorage môže v súkromnom okne zlyhať – vtedy držíme dáta v pamäti.
 const memory = new Map()
 
 export function readJSON(key, fallback) {

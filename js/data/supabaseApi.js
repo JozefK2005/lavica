@@ -1,6 +1,4 @@
-// Ostrý režim: dáta zdieľané medzi všetkými študentmi cez Supabase.
-// Študent sa prihlási anonymne (bez registrácie), aby sa dali počítať jeho hlasy.
-import { createClient } from '@supabase/supabase-js'
+import { createClient } from '../../vendor/supabase.js'
 import { resizeImage } from '../lib/image.js'
 import { equipmentStatus, problemStatus } from './view.js'
 

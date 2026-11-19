@@ -1,5 +1,3 @@
-// ID učebne = kód budovy + číslo, napr. „L9-108“ (Letná 9, učebňa 108).
-// Rovnaké číslo tak môže existovať vo viacerých budovách.
 
 export function roomKey(buildingCode, number) {
   return `${String(buildingCode).trim()}-${String(number).trim()}`.toUpperCase()

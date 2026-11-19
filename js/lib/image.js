@@ -1,4 +1,3 @@
-// Zmenší fotku pred uložením/nahraním (šetrí dáta aj úložisko).
 export function resizeImage(file, maxSide = 1280, quality = 0.75) {
   return new Promise((resolve, reject) => {
     const url = URL.createObjectURL(file)

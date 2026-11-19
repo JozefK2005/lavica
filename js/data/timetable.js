@@ -1,11 +1,9 @@
-// Rozvrh je osobný, preto ho držíme len v zariadení študenta.
 import { readJSON, writeJSON } from '../lib/storage.js'
 import { isoWeek, timeToMinutes, weekdayIndex } from '../lib/dates.js'
 
 const KEY = 'ucebne:timetable:v1'
 
 export function getTimetable() {
-  // staršie verzie ukladali len číslo učebne bez budovy – priradíme Letnú 9
   return readJSON(KEY, []).map((l) => (String(l.roomId).includes('-') ? l : { ...l, roomId: `L9-${l.roomId}` }))
 }
 
@@ -19,7 +17,6 @@ export function newId() {
   return Math.random().toString(36).slice(2, 10)
 }
 
-// Hodiny pre konkrétny dátum – rešpektuje párny/nepárny týždeň.
 export function lessonsForDate(lessons, date) {
   const day = weekdayIndex(date)
   if (day < 0) return []
